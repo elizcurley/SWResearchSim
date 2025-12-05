@@ -1,722 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Work Research Lab</title>
+  <meta name="description" content="Interactive PI simulation for MSW students to practice social work research decisions from framing to dissemination.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --accent: #6b5bff;
+      --accent-2: #00b5ad;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --shadow: 0 15px 45px rgba(31, 41, 55, 0.1);
+      --radius: 16px;
+    }
 
-diff --git a/index.html b/index.html
-index 8b137891791fe96927ad78e64b0aad7bded08bdc..a61c6df3a1b74678a285d373176a960310c81a12 100644
---- a/index.html
-+++ b/index.html
-@@ -1 +1,716 @@
-+<!DOCTYPE html>
-+<html lang="en">
-+<head>
-+  <meta charset="UTF-8">
-+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-+  <title>Social Work Research Lab</title>
-+  <meta name="description" content="Interactive PI simulation for MSW students to practice social work research decisions from framing to dissemination.">
-+  <link rel="preconnect" href="https://fonts.googleapis.com">
-+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-+  <style>
-+    :root {
-+      --bg: #f6f7fb;
-+      --card: #ffffff;
-+      --accent: #6b5bff;
-+      --accent-2: #00b5ad;
-+      --text: #1f2937;
-+      --muted: #6b7280;
-+      --shadow: 0 15px 45px rgba(31, 41, 55, 0.1);
-+      --radius: 16px;
-+    }
- 
-+    * { box-sizing: border-box; }
-+
-+    body {
-+      margin: 0;
-+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-+      background: var(--bg);
-+      color: var(--text);
-+      line-height: 1.6;
-+    }
-+
-+    header {
-+      background: linear-gradient(120deg, #1f2a6d, #1f408d, #00b5ad);
-+      color: #fff;
-+      padding: 32px 24px 42px;
-+      box-shadow: var(--shadow);
-+    }
-+
-+    .hero {
-+      max-width: 1100px;
-+      margin: 0 auto;
-+      display: grid;
-+      grid-template-columns: 1.2fr 1fr;
-+      gap: 24px;
-+      align-items: center;
-+    }
-+
-+    .hero h1 { margin: 0 0 12px; font-size: 2.4rem; }
-+    .hero p { margin: 0 0 20px; color: #e5e7eb; }
-+
-+    .tag {
-+      display: inline-flex;
-+      align-items: center;
-+      gap: 8px;
-+      background: rgba(255,255,255,0.1);
-+      padding: 8px 14px;
-+      border-radius: 999px;
-+      font-weight: 600;
-+      letter-spacing: 0.01em;
-+    }
-+
-+    .stats {
-+      display: flex;
-+      gap: 14px;
-+      flex-wrap: wrap;
-+    }
-+
-+    .stat {
-+      background: rgba(255,255,255,0.08);
-+      padding: 12px 14px;
-+      border-radius: 12px;
-+      min-width: 140px;
-+      text-align: center;
-+    }
-+
-+    .stat strong { display: block; font-size: 1.4rem; }
-+
-+    main {
-+      max-width: 1100px;
-+      margin: -48px auto 64px;
-+      padding: 0 16px;
-+      position: relative;
-+      z-index: 2;
-+    }
-+
-+    .grid {
-+      display: grid;
-+      grid-template-columns: 1.25fr 0.9fr;
-+      gap: 18px;
-+      align-items: start;
-+    }
-+
-+    .card {
-+      background: var(--card);
-+      border-radius: var(--radius);
-+      padding: 18px;
-+      box-shadow: var(--shadow);
-+    }
-+
-+    .card h2, .card h3 { margin: 0 0 10px; }
-+
-+    .progress {
-+      background: #e5e7eb;
-+      border-radius: 999px;
-+      height: 12px;
-+      overflow: hidden;
-+      margin: 8px 0 12px;
-+    }
-+
-+    .progress-bar {
-+      height: 100%;
-+      width: 0;
-+      background: linear-gradient(120deg, #6b5bff, #00b5ad);
-+      transition: width 0.4s ease;
-+    }
-+
-+    .pill {
-+      display: inline-flex;
-+      align-items: center;
-+      gap: 6px;
-+      padding: 6px 10px;
-+      border-radius: 10px;
-+      background: #eef2ff;
-+      color: #4338ca;
-+      font-weight: 600;
-+      font-size: 0.9rem;
-+      margin-bottom: 8px;
-+    }
-+
-+    .options { display: grid; gap: 12px; margin: 12px 0; }
-+
-+    .option {
-+      border: 1px solid #e5e7eb;
-+      border-radius: 12px;
-+      padding: 12px;
-+      display: flex;
-+      justify-content: space-between;
-+      align-items: center;
-+      cursor: pointer;
-+      gap: 10px;
-+      transition: border 0.2s ease, transform 0.1s ease;
-+    }
-+
-+    .option:hover { border-color: var(--accent); transform: translateY(-2px); }
-+    .option.selected { border-color: var(--accent-2); box-shadow: 0 10px 20px rgba(0, 181, 173, 0.15); }
-+
-+    .badges { display: flex; flex-wrap: wrap; gap: 8px; }
-+
-+    .badge {
-+      background: #f3f4f6;
-+      padding: 6px 10px;
-+      border-radius: 10px;
-+      font-weight: 600;
-+      font-size: 0.85rem;
-+      color: #374151;
-+    }
-+
-+    .actions { display: flex; gap: 10px; margin-top: 12px; }
-+
-+    button {
-+      border: none;
-+      border-radius: 10px;
-+      padding: 10px 14px;
-+      font-weight: 700;
-+      cursor: pointer;
-+      transition: transform 0.12s ease, box-shadow 0.12s ease;
-+    }
-+
-+    button.primary {
-+      background: var(--accent);
-+      color: #fff;
-+      box-shadow: 0 10px 30px rgba(107, 91, 255, 0.35);
-+    }
-+
-+    button.secondary { background: #f3f4f6; color: #1f2937; }
-+    button:disabled { opacity: 0.6; cursor: not-allowed; }
-+    button:active { transform: translateY(1px); }
-+
-+    .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
-+    .metric { background: #f8fafc; padding: 12px; border-radius: 12px; border: 1px solid #e5e7eb; }
-+    .metric span { display: block; color: #6b7280; font-weight: 600; font-size: 0.9rem; }
-+    .meter { height: 10px; background: #e5e7eb; border-radius: 999px; margin-top: 8px; overflow: hidden; }
-+    .meter > div { height: 100%; background: linear-gradient(120deg, #ff9a62, #6b5bff); width: 50%; }
-+
-+    .timeline { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
-+    .timeline .step {
-+      flex: 1 1 160px;
-+      background: #f3f4f6;
-+      padding: 10px;
-+      border-radius: 10px;
-+      border: 1px solid #e5e7eb;
-+      font-weight: 700;
-+      color: #374151;
-+      display: flex;
-+      align-items: center;
-+      gap: 8px;
-+    }
-+
-+    .step.active { background: #eef2ff; border-color: #c7d2fe; color: #4338ca; }
-+    .step.complete { background: #ecfdf3; border-color: #a7f3d0; color: #065f46; }
-+
-+    .log { max-height: 340px; overflow-y: auto; display: grid; gap: 8px; }
-+    .log-entry {
-+      border: 1px solid #e5e7eb;
-+      background: #f9fafb;
-+      padding: 10px 12px;
-+      border-radius: 10px;
-+      font-size: 0.95rem;
-+    }
-+    .log small { color: #6b7280; font-weight: 700; }
-+
-+    .summary {
-+      background: #0f172a;
-+      color: #e2e8f0;
-+      padding: 14px;
-+      border-radius: 12px;
-+      margin-top: 10px;
-+    }
-+
-+    @media (max-width: 960px) { .hero { grid-template-columns: 1fr; } .grid { grid-template-columns: 1fr; } }
-+  </style>
-+</head>
-+<body>
-+  <header>
-+    <div class="hero">
-+      <div>
-+        <div class="tag">MSW Lab · PI simulation</div>
-+        <h1>Guide a community-centered social work study from idea to impact.</h1>
-+        <p>Make research decisions, balance rigor with relationship-building, and see how your choices ripple across ethics, inclusion, and project timelines.</p>
-+        <div class="stats">
-+          <div class="stat"><strong>5</strong><span>Core phases</span></div>
-+          <div class="stat"><strong>20+</strong><span>Decision points</span></div>
-+          <div class="stat"><strong>Live</strong><span>Impact feedback</span></div>
-+        </div>
-+      </div>
-+      <div class="card" style="background: rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.25);">
-+        <h3 style="margin-top:0;">Simulation goals</h3>
-+        <ul style="padding-left: 18px; color:#e5e7eb;">
-+          <li>Practice making responsible research choices as a Principal Investigator.</li>
-+          <li>Balance methodological rigor, ethical safeguards, and community trust.</li>
-+          <li>Preview tradeoffs before launching a real study.</li>
-+        </ul>
-+        <button class="primary" onclick="startSimulation()" style="margin-top:10px; width:100%;">Begin your first run</button>
-+      </div>
-+    </div>
-+  </header>
-+
-+  <main>
-+    <div class="grid">
-+      <section class="card">
-+        <div class="pill">Simulation track</div>
-+        <h2 id="phaseTitle">Phase 1: Framing the question</h2>
-+        <p id="phaseDescription" style="color:var(--muted); margin-top:-6px;">Define a purpose that centers community needs and practice relevance.</p>
-+
-+        <div class="timeline" id="timeline"></div>
-+
-+        <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
-+
-+        <div id="fallbackBanner" style="display:none; margin:10px 0; padding:12px; border:1px solid #f59e0b; background:#fef3c7; border-radius:12px; color:#92400e;">
-+          <strong>Having trouble seeing the simulation?</strong>
-+          <p style="margin:6px 0 0;">If the page looks blank after publishing, try a hard refresh (Ctrl/Cmd + Shift + R) or confirm that <code>index.html</code> is served from your main branch root.</p>
-+        </div>
-+
-+        <div id="decisionArea">
-+          <div class="card" style="box-shadow:none; border:1px dashed #cbd5e1; background:#f8fafc;">
-+            <h3 style="margin-top:0;">Loading the first decision…</h3>
-+            <p style="color:var(--muted);">If nothing appears, please refresh or enable JavaScript. The simulation renders choices dynamically.</p>
-+          </div>
-+        </div>
-+      </section>
-+
-+      <section class="card">
-+        <div class="pill" style="background:#ecfdf3; color:#065f46;">PI Dashboard</div>
-+        <h3>Impact meters</h3>
-+        <div class="metrics">
-+          <div class="metric">
-+            <span>Scientific rigor</span>
-+            <div class="meter"><div id="rigorMeter"></div></div>
-+          </div>
-+          <div class="metric">
-+            <span>Ethics & safeguarding</span>
-+            <div class="meter"><div id="ethicsMeter"></div></div>
-+          </div>
-+          <div class="metric">
-+            <span>Inclusion & equity</span>
-+            <div class="meter"><div id="inclusionMeter"></div></div>
-+          </div>
-+          <div class="metric">
-+            <span>Timeline health</span>
-+            <div class="meter"><div id="timelineMeter"></div></div>
-+          </div>
-+        </div>
-+
-+        <div class="summary" id="summaryBox" role="status" aria-live="polite">
-+          <strong>How you're doing</strong>
-+          <p style="margin:6px 0 0; color:#cbd5e1;">Make a choice to see the ripple effects on your study.</p>
-+        </div>
-+
-+        <h3 style="margin-top:16px;">Decision log</h3>
-+        <div class="log" id="log"></div>
-+        <div class="actions" style="margin-top:16px;">
-+          <button class="secondary" onclick="resetSimulation()">Reset</button>
-+          <button class="primary" onclick="jumpToReport()">Show draft report</button>
-+        </div>
-+      </section>
-+    </div>
-+  </main>
-+
-+  <div style="max-width:1100px; margin:0 auto 40px; padding:0 16px;">
-+    <section class="card">
-+      <div class="pill" style="background:#eff6ff; color:#1d4ed8;">Deployment checklist</div>
-+      <h3 style="margin-top:4px;">Ready to publish?</h3>
-+      <ul style="color:var(--muted); line-height:1.65; padding-left: 20px; margin: 8px 0 0;">
-+        <li>Everything lives in <code>index.html</code>; no build step or dependencies are required.</li>
-+        <li>Upload this file to any static host (GitHub Pages, Netlify Drop, or your LMS file server) to go live—no custom domain needed.</li>
-+        <li>If you want it on GitHub Pages without buying a domain, enable Pages for this repo and serve from the root of the <code>main</code> branch (or a <code>docs/</code> folder) with this file committed there.</li>
-+        <li>If you're using git, add a remote and push this branch so your deployment target can pull the latest changes.</li>
-+      </ul>
-+    </section>
-+  </div>
-+
-+  <noscript>
-+    <div style="max-width:1100px; margin:0 auto 28px; padding:12px 16px; background:#fef3c7; border:1px solid #f59e0b; border-radius:12px; color:#92400e;">
-+      <strong>JavaScript is required</strong>
-+      <p style="margin:6px 0 0;">This interactive simulation needs JavaScript to render decisions and update the dashboard. Please enable JavaScript and refresh.</p>
-+    </div>
-+  </noscript>
-+
-+  <script>
-+    const phases = [
-+      {
-+        id: 'question',
-+        title: 'Framing the research question',
-+        description: 'Clarify purpose, relevance, and voice of the community in the inquiry.',
-+        decisions: [
-+          {
-+            prompt: 'Who helps shape the primary research question?',
-+            options: [
-+              { label: 'Lead investigator drafts alone to move quickly', impact: { rigor: 4, ethics: 0, inclusion: -6, timeline: 2 }, note: 'Faster start, but risks misalignment with community priorities.' },
-+              { label: 'Co-create with community advisory board (CAB)', impact: { rigor: 5, ethics: 6, inclusion: 9, timeline: -2 }, note: 'High trust and relevance, adds meeting time.' },
-+              { label: 'Use existing agency report without new input', impact: { rigor: -1, ethics: -3, inclusion: -2, timeline: 3 }, note: 'Saves time but may ignore current needs.' }
-+            ]
-+          },
-+          {
-+            prompt: 'How do you define the population focus?',
-+            options: [
-+              { label: 'Broad metro area youth in care', impact: { rigor: 2, ethics: 2, inclusion: 1, timeline: 2 }, note: 'Generalizable but may dilute nuance.' },
-+              { label: 'Specific subgroup identified by CAB', impact: { rigor: 4, ethics: 4, inclusion: 6, timeline: -1 }, note: 'Sharper focus with community signal; recruitment is manageable.' },
-+              { label: 'Convenience sample from your internship site', impact: { rigor: -2, ethics: -1, inclusion: -3, timeline: 4 }, note: 'Quick but introduces bias and power concerns.' }
-+            ]
-+          }
-+        ]
-+      },
-+      {
-+        id: 'design',
-+        title: 'Design and method selection',
-+        description: 'Choose study designs that honor lived experience and methodological strength.',
-+        decisions: [
-+          {
-+            prompt: 'Pick a primary design path',
-+            options: [
-+              { label: 'Mixed-methods with participatory evaluation', impact: { rigor: 7, ethics: 6, inclusion: 8, timeline: -3 }, note: 'Deep insight with community validation, but slower.' },
-+              { label: 'Rapid cross-sectional survey', impact: { rigor: 3, ethics: 1, inclusion: 1, timeline: 3 }, note: 'Fast snapshot; limited depth on context.' },
-+              { label: 'Secondary data analysis only', impact: { rigor: 1, ethics: 2, inclusion: 0, timeline: 4 }, note: 'Low burden; may miss current realities.' }
-+            ]
-+          },
-+          {
-+            prompt: 'Plan for trauma-informed procedures',
-+            options: [
-+              { label: 'Embed grounding breaks & support referrals', impact: { rigor: 2, ethics: 8, inclusion: 6, timeline: -2 }, note: 'Prioritizes safety; requires facilitator time.' },
-+              { label: 'Standard consent and debrief only', impact: { rigor: 1, ethics: 2, inclusion: 0, timeline: 1 }, note: 'Baseline protections; may miss harm signals.' },
-+              { label: 'Rely on IRB template without adaptation', impact: { rigor: -1, ethics: -4, inclusion: -2, timeline: 2 }, note: 'Risks inadequate safeguards and trust.' }
-+            ]
-+          }
-+        ]
-+      },
-+      {
-+        id: 'recruit',
-+        title: 'Recruitment and sampling',
-+        description: 'Balance inclusion, feasibility, and voice while protecting participants.',
-+        decisions: [
-+          {
-+            prompt: 'Sampling approach',
-+            options: [
-+              { label: 'Stratified sampling across partner agencies', impact: { rigor: 6, ethics: 4, inclusion: 7, timeline: -2 }, note: 'Representative with shared governance; more coordination.' },
-+              { label: 'Snowball sampling through peers', impact: { rigor: 2, ethics: 1, inclusion: 4, timeline: 1 }, note: 'Relational access; monitor confidentiality closely.' },
-+              { label: 'Flyers at single agency site', impact: { rigor: -1, ethics: -1, inclusion: -3, timeline: 3 }, note: 'Quick but narrow and risks gatekeeping.' }
-+            ]
-+          },
-+          {
-+            prompt: 'Compensation plan',
-+            options: [
-+              { label: 'Tiered incentives with transportation support', impact: { rigor: 3, ethics: 7, inclusion: 8, timeline: -1 }, note: 'Reduces access barriers; requires budget tracking.' },
-+              { label: 'Flat gift card for all participants', impact: { rigor: 1, ethics: 4, inclusion: 2, timeline: 1 }, note: 'Simple; may not address differential barriers.' },
-+              { label: 'No compensation due to budget constraints', impact: { rigor: -3, ethics: -4, inclusion: -6, timeline: 2 }, note: 'Likely lowers trust and diversity.' }
-+            ]
-+          }
-+        ]
-+      },
-+      {
-+        id: 'collect',
-+        title: 'Data collection',
-+        description: 'Implement safeguards, data quality checks, and culturally responsive facilitation.',
-+        decisions: [
-+          {
-+            prompt: 'Facilitation plan for focus groups',
-+            options: [
-+              { label: 'Co-facilitate with CAB member + PI', impact: { rigor: 4, ethics: 6, inclusion: 8, timeline: -1 }, note: 'Shared power and cultural safety; scheduling takes effort.' },
-+              { label: 'PI facilitates with scripted guide', impact: { rigor: 2, ethics: 2, inclusion: 1, timeline: 1 }, note: 'Consistent delivery, but less community ownership.' },
-+              { label: 'Use online survey only', impact: { rigor: 0, ethics: 1, inclusion: -1, timeline: 3 }, note: 'Low burden; limited depth for complex topics.' }
-+            ]
-+          },
-+          {
-+            prompt: 'Data quality checks',
-+            options: [
-+              { label: 'Real-time monitoring + reflexive memoing', impact: { rigor: 7, ethics: 4, inclusion: 2, timeline: -1 }, note: 'Stronger validity; takes focus time.' },
-+              { label: 'Weekly review meetings', impact: { rigor: 4, ethics: 3, inclusion: 1, timeline: 0 }, note: 'Balanced cadence; moderate overhead.' },
-+              { label: 'Minimal checks before analysis', impact: { rigor: -3, ethics: -2, inclusion: -1, timeline: 2 }, note: 'Fast but risks unusable data.' }
-+            ]
-+          }
-+        ]
-+      },
-+      {
-+        id: 'analyze',
-+        title: 'Analysis and dissemination',
-+        description: 'Interpret findings with community voice and share usable knowledge.',
-+        decisions: [
-+          {
-+            prompt: 'Sense-making sessions',
-+            options: [
-+              { label: 'Host co-analysis workshops with CAB', impact: { rigor: 6, ethics: 6, inclusion: 9, timeline: -2 }, note: 'High authenticity; adds facilitation time.' },
-+              { label: 'PI-led coding with periodic check-ins', impact: { rigor: 4, ethics: 3, inclusion: 2, timeline: 1 }, note: 'Steady pace; moderate inclusion.' },
-+              { label: 'Solo analysis to meet deadline', impact: { rigor: -1, ethics: -2, inclusion: -3, timeline: 3 }, note: 'Fast but risks misinterpretation.' }
-+            ]
-+          },
-+          {
-+            prompt: 'Dissemination plan',
-+            options: [
-+              { label: 'Community briefs + policy memo + webinar', impact: { rigor: 3, ethics: 5, inclusion: 6, timeline: -1 }, note: 'Actionable outputs for multiple audiences.' },
-+              { label: 'Academic poster only', impact: { rigor: 2, ethics: -1, inclusion: -2, timeline: 2 }, note: 'Meets academic norms; limited community value.' },
-+              { label: 'Data dashboard co-designed with partners', impact: { rigor: 4, ethics: 3, inclusion: 7, timeline: -1 }, note: 'Transparent and usable; requires design time.' }
-+            ]
-+          }
-+        ]
-+      }
-+    ];
-+
-+    const state = {
-+      phaseIndex: 0,
-+      decisionIndex: 0,
-+      scores: { rigor: 50, ethics: 50, inclusion: 50, timeline: 50 },
-+      log: []
-+    };
-+
-+    const meters = {
-+      rigor: document.getElementById('rigorMeter'),
-+      ethics: document.getElementById('ethicsMeter'),
-+      inclusion: document.getElementById('inclusionMeter'),
-+      timeline: document.getElementById('timelineMeter')
-+    };
-+
-+    const phaseTitle = document.getElementById('phaseTitle');
-+    const phaseDescription = document.getElementById('phaseDescription');
-+    const decisionArea = document.getElementById('decisionArea');
-+    const progressBar = document.getElementById('progressBar');
-+    const timelineEl = document.getElementById('timeline');
-+    const logEl = document.getElementById('log');
-+    const summaryBox = document.getElementById('summaryBox');
-+
-+    function clampScore(v) { return Math.max(0, Math.min(100, v)); }
-+
-+    function updateMeters() {
-+      Object.entries(state.scores).forEach(([key, value]) => {
-+        meters[key].style.width = `${value}%`;
-+        meters[key].style.background = `linear-gradient(120deg, #6b5bff, ${value >= 60 ? '#00b5ad' : '#ff9a62'})`;
-+      });
-+    }
-+
-+    function renderTimeline() {
-+      timelineEl.innerHTML = '';
-+      phases.forEach((phase, index) => {
-+        const div = document.createElement('div');
-+        div.className = 'step';
-+        if (index < state.phaseIndex) div.classList.add('complete');
-+        if (index === state.phaseIndex) div.classList.add('active');
-+        div.innerHTML = `<span>${index + 1}.</span> ${phase.title}`;
-+        timelineEl.appendChild(div);
-+      });
-+    }
-+
-+    function renderDecision() {
-+      const phase = phases[state.phaseIndex];
-+      const decision = phase.decisions[state.decisionIndex];
-+
-+      phaseTitle.textContent = `Phase ${state.phaseIndex + 1}: ${phase.title}`;
-+      phaseDescription.textContent = phase.description;
-+
-+      const totalSteps = phases.reduce((sum, p) => sum + p.decisions.length, 0);
-+      const completed = phases.slice(0, state.phaseIndex).reduce((sum, p) => sum + p.decisions.length, 0) + state.decisionIndex;
-+      progressBar.style.width = `${((completed) / totalSteps) * 100}%`;
-+
-+      decisionArea.innerHTML = `
-+        <h3>${decision.prompt}</h3>
-+        <div class="options">
-+          ${decision.options.map((opt, idx) => `
-+            <div class="option" data-index="${idx}">
-+              <div>
-+                <strong>${opt.label}</strong>
-+                <p style="margin:4px 0 0; color:var(--muted);">${opt.note}</p>
-+              </div>
-+              <div class="badges">
-+                <span class="badge">Rigor ${opt.impact.rigor >= 0 ? '+' : ''}${opt.impact.rigor}</span>
-+                <span class="badge">Ethics ${opt.impact.ethics >= 0 ? '+' : ''}${opt.impact.ethics}</span>
-+                <span class="badge">Inclusion ${opt.impact.inclusion >= 0 ? '+' : ''}${opt.impact.inclusion}</span>
-+                <span class="badge">Timeline ${opt.impact.timeline >= 0 ? '+' : ''}${opt.impact.timeline}</span>
-+              </div>
-+            </div>
-+          `).join('')}
-+        </div>
-+        <div class="actions">
-+          <button class="primary" id="commitDecision" disabled>Commit decision</button>
-+          <button class="secondary" onclick="skipAhead()">Skip ahead</button>
-+        </div>
-+      `;
-+
-+      document.querySelectorAll('.option').forEach(optionEl => {
-+        optionEl.addEventListener('click', () => {
-+          document.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
-+          optionEl.classList.add('selected');
-+          const commitBtn = document.getElementById('commitDecision');
-+          commitBtn.disabled = false;
-+          commitBtn.onclick = () => chooseOption(parseInt(optionEl.dataset.index, 10));
-+        });
-+      });
-+
-+      renderTimeline();
-+      updateMeters();
-+    }
-+
-+    function logDecision(phaseTitleText, decisionPrompt, optionLabel, impactNote) {
-+      const entry = document.createElement('div');
-+      entry.className = 'log-entry';
-+      entry.innerHTML = `
-+        <small>${phaseTitleText}</small><br>
-+        <strong>${decisionPrompt}</strong><br>
-+        ${optionLabel}<br>
-+        <span style="color:var(--muted);">${impactNote}</span>
-+      `;
-+      logEl.prepend(entry);
-+    }
-+
-+    function updateSummary() {
-+      const { rigor, ethics, inclusion, timeline } = state.scores;
-+      const strengths = [];
-+      if (ethics >= 65) strengths.push('robust safeguarding');
-+      if (inclusion >= 65) strengths.push('equitable participation');
-+      if (rigor >= 65) strengths.push('strong validity');
-+
-+      const risks = [];
-+      if (timeline <= 45) risks.push('timeline pressure');
-+      if (rigor <= 45) risks.push('analytic coherence');
-+      if (ethics <= 45) risks.push('participant safety');
-+
-+      summaryBox.innerHTML = `
-+        <strong>How you're doing</strong>
-+        <p style="margin:6px 0; color:#cbd5e1;">
-+          ${strengths.length ? `Strengths: ${strengths.join(', ')}.` : 'Keep building your strengths.'}
-+          ${risks.length ? ` Watch for ${risks.join(', ')}.` : ' No major risks flagged.'}
-+        </p>
-+      `;
-+    }
-+
-+    function chooseOption(index) {
-+      const phase = phases[state.phaseIndex];
-+      const decision = phase.decisions[state.decisionIndex];
-+      const option = decision.options[index];
-+
-+      Object.entries(option.impact).forEach(([key, delta]) => {
-+        state.scores[key] = clampScore(state.scores[key] + delta);
-+      });
-+
-+      logDecision(phase.title, decision.prompt, option.label, option.note);
-+      updateMeters();
-+      updateSummary();
-+
-+      const nextDecision = state.decisionIndex + 1;
-+      if (nextDecision < phase.decisions.length) {
-+        state.decisionIndex = nextDecision;
-+      } else if (state.phaseIndex + 1 < phases.length) {
-+        state.phaseIndex += 1;
-+        state.decisionIndex = 0;
-+      } else {
-+        finishSimulation();
-+        return;
-+      }
-+      renderDecision();
-+    }
-+
-+    function finishSimulation() {
-+      progressBar.style.width = '100%';
-+      decisionArea.innerHTML = `
-+        <h3>Draft PI report</h3>
-+        <p style="color:var(--muted);">Your run is complete. Review your performance profile, then tweak choices to explore different outcomes.</p>
-+        <ul>
-+          <li>Rigor: ${state.scores.rigor}/100</li>
-+          <li>Ethics & safeguarding: ${state.scores.ethics}/100</li>
-+          <li>Inclusion & equity: ${state.scores.inclusion}/100</li>
-+          <li>Timeline health: ${state.scores.timeline}/100</li>
-+        </ul>
-+        <button class="primary" onclick="resetSimulation()">Run again</button>
-+      `;
-+      renderTimeline();
-+    }
-+
-+    function resetSimulation() {
-+      state.phaseIndex = 0;
-+      state.decisionIndex = 0;
-+      state.scores = { rigor: 50, ethics: 50, inclusion: 50, timeline: 50 };
-+      state.log = [];
-+      logEl.innerHTML = '';
-+      renderDecision();
-+      updateSummary();
-+    }
-+
-+    function skipAhead() {
-+      const phase = phases[state.phaseIndex];
-+      if (state.decisionIndex + 1 < phase.decisions.length) {
-+        state.decisionIndex += 1;
-+      } else if (state.phaseIndex + 1 < phases.length) {
-+        state.phaseIndex += 1;
-+        state.decisionIndex = 0;
-+      }
-+      renderDecision();
-+    }
-+
-+    function startSimulation() {
-+      window.scrollTo({ top: document.querySelector('main').offsetTop - 16, behavior: 'smooth' });
-+      resetSimulation();
-+    }
-+
-+    function jumpToReport() {
-+      state.phaseIndex = phases.length - 1;
-+      state.decisionIndex = phases[state.phaseIndex].decisions.length - 1;
-+      renderDecision();
-+    }
-+
-+    function showFallback(message) {
-+      const fallback = document.getElementById('fallbackBanner');
-+      if (!fallback) return;
-+      fallback.style.display = 'block';
-+      const paragraph = fallback.querySelector('p');
-+      if (paragraph) paragraph.textContent = message;
-+    }
-+
-+    function validateDom() {
-+      const required = {
-+        phaseTitle,
-+        phaseDescription,
-+        decisionArea,
-+        progressBar,
-+        timelineEl,
-+        logEl,
-+        summaryBox,
-+        rigorMeter: meters.rigor,
-+        ethicsMeter: meters.ethics,
-+        inclusionMeter: meters.inclusion,
-+        timelineMeter: meters.timeline
-+      };
-+
-+      const missing = Object.entries(required)
-+        .filter(([, node]) => !node)
-+        .map(([name]) => name);
-+
-+      if (missing.length) {
-+        console.error('Simulation UI failed to mount. Missing elements:', missing);
-+        showFallback(`We could not find required elements (${missing.join(', ')}). Please ensure index.html is served from your branch root.`);
-+        return false;
-+      }
-+
-+      return true;
-+    }
-+
-+    function initSimulation() {
-+      try {
-+        if (!validateDom()) return;
-+
-+        renderDecision();
-+        updateSummary();
-+
-+        window.addEventListener('error', (event) => {
-+          showFallback(`We hit a script error (${event.message}). Try a hard refresh or check your hosting settings.`);
-+        }, { once: true });
-+
-+        setTimeout(() => {
-+          const hasRenderedDecision = !!decisionArea.querySelector('.option');
-+          if (!hasRenderedDecision) {
-+            showFallback('The interactive choices did not render. Refresh your page or ensure your deployment points to this index.html file.');
-+          }
-+        }, 1200);
-+
-+        console.info('Simulation initialized');
-+      } catch (error) {
-+        console.error('Initialization failed:', error);
-+        showFallback('Initialization failed. Try a hard refresh or confirm your deployment points at this exact index.html.');
-+      }
-+    }
-+
-+    if (document.readyState === 'loading') {
-+      document.addEventListener('DOMContentLoaded', initSimulation);
-+    } else {
-+      initSimulation();
-+    }
-+  </script>
-+</body>
-+</html>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(120deg, #1f2a6d, #1f408d, #00b5ad);
+      color: #fff;
+      padding: 32px 24px 42px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero h1 { margin: 0 0 12px; font-size: 2.4rem; }
+    .hero p { margin: 0 0 20px; color: #e5e7eb; }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    .stats {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.08);
+      padding: 12px 14px;
+      border-radius: 12px;
+      min-width: 140px;
+      text-align: center;
+    }
+
+    .stat strong { display: block; font-size: 1.4rem; }
+
+    main {
+      max-width: 1100px;
+      margin: -48px auto 64px;
+      padding: 0 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.9fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h2, .card h3 { margin: 0 0 10px; }
+
+    .progress {
+      background: #e5e7eb;
+      border-radius: 999px;
+      height: 12px;
+      overflow: hidden;
+      margin: 8px 0 12px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(120deg, #6b5bff, #00b5ad);
+      transition: width 0.4s ease;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      background: #eef2ff;
+      color: #4338ca;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+
+    .options { display: grid; gap: 12px; margin: 12px 0; }
+
+    .option {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      gap: 10px;
+      transition: border 0.2s ease, transform 0.1s ease;
+    }
+
+    .option:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .option.selected { border-color: var(--accent-2); box-shadow: 0 10px 20px rgba(0, 181, 173, 0.15); }
+
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .badge {
+      background: #f3f4f6;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #374151;
+    }
+
+    .actions { display: flex; gap: 10px; margin-top: 12px; }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    button.primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(107, 91, 255, 0.35);
+    }
+
+    button.secondary { background: #f3f4f6; color: #1f2937; }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    button:active { transform: translateY(1px); }
+
+    .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .metric { background: #f8fafc; padding: 12px; border-radius: 12px; border: 1px solid #e5e7eb; }
+    .metric span { display: block; color: #6b7280; font-weight: 600; font-size: 0.9rem; }
+    .meter { height: 10px; background: #e5e7eb; border-radius: 999px; margin-top: 8px; overflow: hidden; }
+    .meter > div { height: 100%; background: linear-gradient(120deg, #ff9a62, #6b5bff); width: 50%; }
+
+    .timeline { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+    .timeline .step {
+      flex: 1 1 160px;
+      background: #f3f4f6;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      font-weight: 700;
+      color: #374151;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .step.active { background: #eef2ff; border-color: #c7d2fe; color: #4338ca; }
+    .step.complete { background: #ecfdf3; border-color: #a7f3d0; color: #065f46; }
+
+    .log { max-height: 340px; overflow-y: auto; display: grid; gap: 8px; }
+    .log-entry {
+      border: 1px solid #e5e7eb;
+      background: #f9fafb;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+    }
+    .log small { color: #6b7280; font-weight: 700; }
+
+    .summary {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 14px;
+      border-radius: 12px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 960px) { .hero { grid-template-columns: 1fr; } .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hero">
+      <div>
+        <div class="tag">MSW Lab · PI simulation</div>
+        <h1>Guide a community-centered social work study from idea to impact.</h1>
+        <p>Make research decisions, balance rigor with relationship-building, and see how your choices ripple across ethics, inclusion, and project timelines.</p>
+        <div class="stats">
+          <div class="stat"><strong>5</strong><span>Core phases</span></div>
+          <div class="stat"><strong>20+</strong><span>Decision points</span></div>
+          <div class="stat"><strong>Live</strong><span>Impact feedback</span></div>
+        </div>
+      </div>
+      <div class="card" style="background: rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.25);">
+        <h3 style="margin-top:0;">Simulation goals</h3>
+        <ul style="padding-left: 18px; color:#e5e7eb;">
+          <li>Practice making responsible research choices as a Principal Investigator.</li>
+          <li>Balance methodological rigor, ethical safeguards, and community trust.</li>
+          <li>Preview tradeoffs before launching a real study.</li>
+        </ul>
+        <button class="primary" onclick="startSimulation()" style="margin-top:10px; width:100%;">Begin your first run</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="grid">
+      <section class="card">
+        <div class="pill">Simulation track</div>
+        <h2 id="phaseTitle">Phase 1: Framing the question</h2>
+        <p id="phaseDescription" style="color:var(--muted); margin-top:-6px;">Define a purpose that centers community needs and practice relevance.</p>
+
+        <div class="timeline" id="timeline"></div>
+
+        <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+
+        <div id="fallbackBanner" style="display:none; margin:10px 0; padding:12px; border:1px solid #f59e0b; background:#fef3c7; border-radius:12px; color:#92400e;">
+          <strong>Having trouble seeing the simulation?</strong>
+          <p style="margin:6px 0 0;">If the page looks blank after publishing, try a hard refresh (Ctrl/Cmd + Shift + R) or confirm that <code>index.html</code> is served from your main branch root.</p>
+        </div>
+
+        <div id="decisionArea">
+          <div class="card" style="box-shadow:none; border:1px dashed #cbd5e1; background:#f8fafc;">
+            <h3 style="margin-top:0;">Loading the first decision…</h3>
+            <p style="color:var(--muted);">If nothing appears, please refresh or enable JavaScript. The simulation renders choices dynamically.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="pill" style="background:#ecfdf3; color:#065f46;">PI Dashboard</div>
+        <h3>Impact meters</h3>
+        <div class="metrics">
+          <div class="metric">
+            <span>Scientific rigor</span>
+            <div class="meter"><div id="rigorMeter"></div></div>
+          </div>
+          <div class="metric">
+            <span>Ethics & safeguarding</span>
+            <div class="meter"><div id="ethicsMeter"></div></div>
+          </div>
+          <div class="metric">
+            <span>Inclusion & equity</span>
+            <div class="meter"><div id="inclusionMeter"></div></div>
+          </div>
+          <div class="metric">
+            <span>Timeline health</span>
+            <div class="meter"><div id="timelineMeter"></div></div>
+          </div>
+        </div>
+
+        <div class="summary" id="summaryBox" role="status" aria-live="polite">
+          <strong>How you're doing</strong>
+          <p style="margin:6px 0 0; color:#cbd5e1;">Make a choice to see the ripple effects on your study.</p>
+        </div>
+
+        <h3 style="margin-top:16px;">Decision log</h3>
+        <div class="log" id="log"></div>
+        <div class="actions" style="margin-top:16px;">
+          <button class="secondary" onclick="resetSimulation()">Reset</button>
+          <button class="primary" onclick="jumpToReport()">Show draft report</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div style="max-width:1100px; margin:0 auto 40px; padding:0 16px;">
+    <section class="card">
+      <div class="pill" style="background:#eff6ff; color:#1d4ed8;">Deployment checklist</div>
+      <h3 style="margin-top:4px;">Ready to publish?</h3>
+      <ul style="color:var(--muted); line-height:1.65; padding-left: 20px; margin: 8px 0 0;">
+        <li>Everything lives in <code>index.html</code>; no build step or dependencies are required.</li>
+        <li>Upload this file to any static host (GitHub Pages, Netlify Drop, or your LMS file server) to go live—no custom domain needed.</li>
+        <li>If you want it on GitHub Pages without buying a domain, enable Pages for this repo and serve from the root of the <code>main</code> branch (or a <code>docs/</code> folder) with this file committed there.</li>
+        <li>If you're using git, add a remote and push this branch so your deployment target can pull the latest changes.</li>
+      </ul>
+    </section>
+  </div>
+
+  <noscript>
+    <div style="max-width:1100px; margin:0 auto 28px; padding:12px 16px; background:#fef3c7; border:1px solid #f59e0b; border-radius:12px; color:#92400e;">
+      <strong>JavaScript is required</strong>
+      <p style="margin:6px 0 0;">This interactive simulation needs JavaScript to render decisions and update the dashboard. Please enable JavaScript and refresh.</p>
+    </div>
+  </noscript>
+
+  <script>
+    const phases = [
+      {
+        id: 'question',
+        title: 'Framing the research question',
+        description: 'Clarify purpose, relevance, and voice of the community in the inquiry.',
+        decisions: [
+          {
+            prompt: 'Who helps shape the primary research question?',
+            options: [
+              { label: 'Lead investigator drafts alone to move quickly', impact: { rigor: 4, ethics: 0, inclusion: -6, timeline: 2 }, note: 'Faster start, but risks misalignment with community priorities.' },
+              { label: 'Co-create with community advisory board (CAB)', impact: { rigor: 5, ethics: 6, inclusion: 9, timeline: -2 }, note: 'High trust and relevance, adds meeting time.' },
+              { label: 'Use existing agency report without new input', impact: { rigor: -1, ethics: -3, inclusion: -2, timeline: 3 }, note: 'Saves time but may ignore current needs.' }
+            ]
+          },
+          {
+            prompt: 'How do you define the population focus?',
+            options: [
+              { label: 'Broad metro area youth in care', impact: { rigor: 2, ethics: 2, inclusion: 1, timeline: 2 }, note: 'Generalizable but may dilute nuance.' },
+              { label: 'Specific subgroup identified by CAB', impact: { rigor: 4, ethics: 4, inclusion: 6, timeline: -1 }, note: 'Sharper focus with community signal; recruitment is manageable.' },
+              { label: 'Convenience sample from your internship site', impact: { rigor: -2, ethics: -1, inclusion: -3, timeline: 4 }, note: 'Quick but introduces bias and power concerns.' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'design',
+        title: 'Design and method selection',
+        description: 'Choose study designs that honor lived experience and methodological strength.',
+        decisions: [
+          {
+            prompt: 'Pick a primary design path',
+            options: [
+              { label: 'Mixed-methods with participatory evaluation', impact: { rigor: 7, ethics: 6, inclusion: 8, timeline: -3 }, note: 'Deep insight with community validation, but slower.' },
+              { label: 'Rapid cross-sectional survey', impact: { rigor: 3, ethics: 1, inclusion: 1, timeline: 3 }, note: 'Fast snapshot; limited depth on context.' },
+              { label: 'Secondary data analysis only', impact: { rigor: 1, ethics: 2, inclusion: 0, timeline: 4 }, note: 'Low burden; may miss current realities.' }
+            ]
+          },
+          {
+            prompt: 'Plan for trauma-informed procedures',
+            options: [
+              { label: 'Embed grounding breaks & support referrals', impact: { rigor: 2, ethics: 8, inclusion: 6, timeline: -2 }, note: 'Prioritizes safety; requires facilitator time.' },
+              { label: 'Standard consent and debrief only', impact: { rigor: 1, ethics: 2, inclusion: 0, timeline: 1 }, note: 'Baseline protections; may miss harm signals.' },
+              { label: 'Rely on IRB template without adaptation', impact: { rigor: -1, ethics: -4, inclusion: -2, timeline: 2 }, note: 'Risks inadequate safeguards and trust.' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'recruit',
+        title: 'Recruitment and sampling',
+        description: 'Balance inclusion, feasibility, and voice while protecting participants.',
+        decisions: [
+          {
+            prompt: 'Sampling approach',
+            options: [
+              { label: 'Stratified sampling across partner agencies', impact: { rigor: 6, ethics: 4, inclusion: 7, timeline: -2 }, note: 'Representative with shared governance; more coordination.' },
+              { label: 'Snowball sampling through peers', impact: { rigor: 2, ethics: 1, inclusion: 4, timeline: 1 }, note: 'Relational access; monitor confidentiality closely.' },
+              { label: 'Flyers at single agency site', impact: { rigor: -1, ethics: -1, inclusion: -3, timeline: 3 }, note: 'Quick but narrow and risks gatekeeping.' }
+            ]
+          },
+          {
+            prompt: 'Compensation plan',
+            options: [
+              { label: 'Tiered incentives with transportation support', impact: { rigor: 3, ethics: 7, inclusion: 8, timeline: -1 }, note: 'Reduces access barriers; requires budget tracking.' },
+              { label: 'Flat gift card for all participants', impact: { rigor: 1, ethics: 4, inclusion: 2, timeline: 1 }, note: 'Simple; may not address differential barriers.' },
+              { label: 'No compensation due to budget constraints', impact: { rigor: -3, ethics: -4, inclusion: -6, timeline: 2 }, note: 'Likely lowers trust and diversity.' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'collect',
+        title: 'Data collection',
+        description: 'Implement safeguards, data quality checks, and culturally responsive facilitation.',
+        decisions: [
+          {
+            prompt: 'Facilitation plan for focus groups',
+            options: [
+              { label: 'Co-facilitate with CAB member + PI', impact: { rigor: 4, ethics: 6, inclusion: 8, timeline: -1 }, note: 'Shared power and cultural safety; scheduling takes effort.' },
+              { label: 'PI facilitates with scripted guide', impact: { rigor: 2, ethics: 2, inclusion: 1, timeline: 1 }, note: 'Consistent delivery, but less community ownership.' },
+              { label: 'Use online survey only', impact: { rigor: 0, ethics: 1, inclusion: -1, timeline: 3 }, note: 'Low burden; limited depth for complex topics.' }
+            ]
+          },
+          {
+            prompt: 'Data quality checks',
+            options: [
+              { label: 'Real-time monitoring + reflexive memoing', impact: { rigor: 7, ethics: 4, inclusion: 2, timeline: -1 }, note: 'Stronger validity; takes focus time.' },
+              { label: 'Weekly review meetings', impact: { rigor: 4, ethics: 3, inclusion: 1, timeline: 0 }, note: 'Balanced cadence; moderate overhead.' },
+              { label: 'Minimal checks before analysis', impact: { rigor: -3, ethics: -2, inclusion: -1, timeline: 2 }, note: 'Fast but risks unusable data.' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'analyze',
+        title: 'Analysis and dissemination',
+        description: 'Interpret findings with community voice and share usable knowledge.',
+        decisions: [
+          {
+            prompt: 'Sense-making sessions',
+            options: [
+              { label: 'Host co-analysis workshops with CAB', impact: { rigor: 6, ethics: 6, inclusion: 9, timeline: -2 }, note: 'High authenticity; adds facilitation time.' },
+              { label: 'PI-led coding with periodic check-ins', impact: { rigor: 4, ethics: 3, inclusion: 2, timeline: 1 }, note: 'Steady pace; moderate inclusion.' },
+              { label: 'Solo analysis to meet deadline', impact: { rigor: -1, ethics: -2, inclusion: -3, timeline: 3 }, note: 'Fast but risks misinterpretation.' }
+            ]
+          },
+          {
+            prompt: 'Dissemination plan',
+            options: [
+              { label: 'Community briefs + policy memo + webinar', impact: { rigor: 3, ethics: 5, inclusion: 6, timeline: -1 }, note: 'Actionable outputs for multiple audiences.' },
+              { label: 'Academic poster only', impact: { rigor: 2, ethics: -1, inclusion: -2, timeline: 2 }, note: 'Meets academic norms; limited community value.' },
+              { label: 'Data dashboard co-designed with partners', impact: { rigor: 4, ethics: 3, inclusion: 7, timeline: -1 }, note: 'Transparent and usable; requires design time.' }
+            ]
+          }
+        ]
+      }
+    ];
+
+    const state = {
+      phaseIndex: 0,
+      decisionIndex: 0,
+      scores: { rigor: 50, ethics: 50, inclusion: 50, timeline: 50 },
+      log: []
+    };
+
+    const meters = {
+      rigor: document.getElementById('rigorMeter'),
+      ethics: document.getElementById('ethicsMeter'),
+      inclusion: document.getElementById('inclusionMeter'),
+      timeline: document.getElementById('timelineMeter')
+    };
+
+    const phaseTitle = document.getElementById('phaseTitle');
+    const phaseDescription = document.getElementById('phaseDescription');
+    const decisionArea = document.getElementById('decisionArea');
+    const progressBar = document.getElementById('progressBar');
+    const timelineEl = document.getElementById('timeline');
+    const logEl = document.getElementById('log');
+    const summaryBox = document.getElementById('summaryBox');
+
+    function clampScore(v) { return Math.max(0, Math.min(100, v)); }
+
+    function updateMeters() {
+      Object.entries(state.scores).forEach(([key, value]) => {
+        meters[key].style.width = `${value}%`;
+        meters[key].style.background = `linear-gradient(120deg, #6b5bff, ${value >= 60 ? '#00b5ad' : '#ff9a62'})`;
+      });
+    }
+
+    function renderTimeline() {
+      timelineEl.innerHTML = '';
+      phases.forEach((phase, index) => {
+        const div = document.createElement('div');
+        div.className = 'step';
+        if (index < state.phaseIndex) div.classList.add('complete');
+        if (index === state.phaseIndex) div.classList.add('active');
+        div.innerHTML = `<span>${index + 1}.</span> ${phase.title}`;
+        timelineEl.appendChild(div);
+      });
+    }
+
+    function renderDecision() {
+      const phase = phases[state.phaseIndex];
+      const decision = phase.decisions[state.decisionIndex];
+
+      phaseTitle.textContent = `Phase ${state.phaseIndex + 1}: ${phase.title}`;
+      phaseDescription.textContent = phase.description;
+
+      const totalSteps = phases.reduce((sum, p) => sum + p.decisions.length, 0);
+      const completed = phases.slice(0, state.phaseIndex).reduce((sum, p) => sum + p.decisions.length, 0) + state.decisionIndex;
+      progressBar.style.width = `${((completed) / totalSteps) * 100}%`;
+
+      decisionArea.innerHTML = `
+        <h3>${decision.prompt}</h3>
+        <div class="options">
+          ${decision.options.map((opt, idx) => `
+            <div class="option" data-index="${idx}">
+              <div>
+                <strong>${opt.label}</strong>
+                <p style="margin:4px 0 0; color:var(--muted);">${opt.note}</p>
+              </div>
+              <div class="badges">
+                <span class="badge">Rigor ${opt.impact.rigor >= 0 ? '+' : ''}${opt.impact.rigor}</span>
+                <span class="badge">Ethics ${opt.impact.ethics >= 0 ? '+' : ''}${opt.impact.ethics}</span>
+                <span class="badge">Inclusion ${opt.impact.inclusion >= 0 ? '+' : ''}${opt.impact.inclusion}</span>
+                <span class="badge">Timeline ${opt.impact.timeline >= 0 ? '+' : ''}${opt.impact.timeline}</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="actions">
+          <button class="primary" id="commitDecision" disabled>Commit decision</button>
+          <button class="secondary" onclick="skipAhead()">Skip ahead</button>
+        </div>
+      `;
+
+      document.querySelectorAll('.option').forEach(optionEl => {
+        optionEl.addEventListener('click', () => {
+          document.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
+          optionEl.classList.add('selected');
+          const commitBtn = document.getElementById('commitDecision');
+          commitBtn.disabled = false;
+          commitBtn.onclick = () => chooseOption(parseInt(optionEl.dataset.index, 10));
+        });
+      });
+
+      renderTimeline();
+      updateMeters();
+    }
+
+    function logDecision(phaseTitleText, decisionPrompt, optionLabel, impactNote) {
+      const entry = document.createElement('div');
+      entry.className = 'log-entry';
+      entry.innerHTML = `
+        <small>${phaseTitleText}</small><br>
+        <strong>${decisionPrompt}</strong><br>
+        ${optionLabel}<br>
+        <span style="color:var(--muted);">${impactNote}</span>
+      `;
+      logEl.prepend(entry);
+    }
+
+    function updateSummary() {
+      const { rigor, ethics, inclusion, timeline } = state.scores;
+      const strengths = [];
+      if (ethics >= 65) strengths.push('robust safeguarding');
+      if (inclusion >= 65) strengths.push('equitable participation');
+      if (rigor >= 65) strengths.push('strong validity');
+
+      const risks = [];
+      if (timeline <= 45) risks.push('timeline pressure');
+      if (rigor <= 45) risks.push('analytic coherence');
+      if (ethics <= 45) risks.push('participant safety');
+
+      summaryBox.innerHTML = `
+        <strong>How you're doing</strong>
+        <p style="margin:6px 0; color:#cbd5e1;">
+          ${strengths.length ? `Strengths: ${strengths.join(', ')}.` : 'Keep building your strengths.'}
+          ${risks.length ? ` Watch for ${risks.join(', ')}.` : ' No major risks flagged.'}
+        </p>
+      `;
+    }
+
+    function chooseOption(index) {
+      const phase = phases[state.phaseIndex];
+      const decision = phase.decisions[state.decisionIndex];
+      const option = decision.options[index];
+
+      Object.entries(option.impact).forEach(([key, delta]) => {
+        state.scores[key] = clampScore(state.scores[key] + delta);
+      });
+
+      logDecision(phase.title, decision.prompt, option.label, option.note);
+      updateMeters();
+      updateSummary();
+
+      const nextDecision = state.decisionIndex + 1;
+      if (nextDecision < phase.decisions.length) {
+        state.decisionIndex = nextDecision;
+      } else if (state.phaseIndex + 1 < phases.length) {
+        state.phaseIndex += 1;
+        state.decisionIndex = 0;
+      } else {
+        finishSimulation();
+        return;
+      }
+      renderDecision();
+    }
+
+    function finishSimulation() {
+      progressBar.style.width = '100%';
+      decisionArea.innerHTML = `
+        <h3>Draft PI report</h3>
+        <p style="color:var(--muted);">Your run is complete. Review your performance profile, then tweak choices to explore different outcomes.</p>
+        <ul>
+          <li>Rigor: ${state.scores.rigor}/100</li>
+          <li>Ethics & safeguarding: ${state.scores.ethics}/100</li>
+          <li>Inclusion & equity: ${state.scores.inclusion}/100</li>
+          <li>Timeline health: ${state.scores.timeline}/100</li>
+        </ul>
+        <button class="primary" onclick="resetSimulation()">Run again</button>
+      `;
+      renderTimeline();
+    }
+
+    function resetSimulation() {
+      state.phaseIndex = 0;
+      state.decisionIndex = 0;
+      state.scores = { rigor: 50, ethics: 50, inclusion: 50, timeline: 50 };
+      state.log = [];
+      logEl.innerHTML = '';
+      renderDecision();
+      updateSummary();
+    }
+
+    function skipAhead() {
+      const phase = phases[state.phaseIndex];
+      if (state.decisionIndex + 1 < phase.decisions.length) {
+        state.decisionIndex += 1;
+      } else if (state.phaseIndex + 1 < phases.length) {
+        state.phaseIndex += 1;
+        state.decisionIndex = 0;
+      }
+      renderDecision();
+    }
+
+    function startSimulation() {
+      window.scrollTo({ top: document.querySelector('main').offsetTop - 16, behavior: 'smooth' });
+      resetSimulation();
+    }
+
+    function jumpToReport() {
+      state.phaseIndex = phases.length - 1;
+      state.decisionIndex = phases[state.phaseIndex].decisions.length - 1;
+      renderDecision();
+    }
+
+    function showFallback(message) {
+      const fallback = document.getElementById('fallbackBanner');
+      if (!fallback) return;
+      fallback.style.display = 'block';
+      const paragraph = fallback.querySelector('p');
+      if (paragraph) paragraph.textContent = message;
+    }
+
+    function validateDom() {
+      const required = {
+        phaseTitle,
+        phaseDescription,
+        decisionArea,
+        progressBar,
+        timelineEl,
+        logEl,
+        summaryBox,
+        rigorMeter: meters.rigor,
+        ethicsMeter: meters.ethics,
+        inclusionMeter: meters.inclusion,
+        timelineMeter: meters.timeline
+      };
+
+      const missing = Object.entries(required)
+        .filter(([, node]) => !node)
+        .map(([name]) => name);
+
+      if (missing.length) {
+        console.error('Simulation UI failed to mount. Missing elements:', missing);
+        showFallback(`We could not find required elements (${missing.join(', ')}). Please ensure index.html is served from your branch root.`);
+        return false;
+      }
+
+      return true;
+    }
+
+    function initSimulation() {
+      try {
+        if (!validateDom()) return;
+
+        renderDecision();
+        updateSummary();
+
+        window.addEventListener('error', (event) => {
+          showFallback(`We hit a script error (${event.message}). Try a hard refresh or check your hosting settings.`);
+        }, { once: true });
+
+        setTimeout(() => {
+          const hasRenderedDecision = !!decisionArea.querySelector('.option');
+          if (!hasRenderedDecision) {
+            showFallback('The interactive choices did not render. Refresh your page or ensure your deployment points to this index.html file.');
+          }
+        }, 1200);
+
+        console.info('Simulation initialized');
+      } catch (error) {
+        console.error('Initialization failed:', error);
+        showFallback('Initialization failed. Try a hard refresh or confirm your deployment points at this exact index.html.');
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSimulation);
+    } else {
+      initSimulation();
+    }
+  </script>
+</body>
+</html>
